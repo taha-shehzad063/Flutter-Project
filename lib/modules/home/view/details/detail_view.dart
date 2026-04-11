@@ -218,29 +218,47 @@ class DetailView extends StatelessWidget {
         ],
       );
 
-  Widget _sizeChip({required String label, required bool isActive, required VoidCallback onTap}) =>
-      GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          margin: const EdgeInsets.only(right: 10),
-          height: 38,
-          constraints: const BoxConstraints(minWidth: 52),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: isActive ? _orange : Colors.white,
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(color: isActive ? _orange : Colors.grey.shade300, width: 1.5),
-            boxShadow: isActive
-                ? [BoxShadow(color: _orange.withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 3))]
-                : [],
+ Widget _sizeChip({
+  required String label,
+  required bool isActive,
+  required VoidCallback onTap,
+}) =>
+    GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        margin: const EdgeInsets.only(right: 10),
+        width: 42,   // 👈 same width & height
+        height: 42,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle, // 🔥 important
+          color: isActive ? _orange : Colors.white,
+          border: Border.all(
+            color: isActive ? _orange : Colors.grey.shade300,
+            width: 1.5,
           ),
-          child: Center(
-            child: Text(label,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isActive ? Colors.white : Colors.black87)),
+          boxShadow: isActive
+              ? [
+                  BoxShadow(
+                    color: _orange.withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  )
+                ]
+              : [],
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: isActive ? Colors.white : Colors.black87,
+            ),
           ),
         ),
-      );
+      ),
+    );
 
   Widget _cartBtn(IconData icon, VoidCallback onTap) => GestureDetector(
         onTap: onTap,
